@@ -1,0 +1,24 @@
+body {
+    font-family: sans-serif;
+    background-color: white;
+    color: black;
+    padding: 1rem;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  body.dark {
+    background-color: #1a1a1a;
+    color: white;
+  }
+  
+  button {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .verset {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0;
+  }
+  
