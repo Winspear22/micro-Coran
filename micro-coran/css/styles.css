@@ -21,4 +21,65 @@ body {
     border-bottom: 1px solid #ccc;
     padding: 1rem 0;
   }
+
+  /* Barre de navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    color: white;
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .navbar-brand {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .navbar-toggle {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .navbar-menu {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-menu li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  /* Responsive hamburger */
+  @media (max-width: 768px) {
+    .navbar-toggle {
+      display: block;
+    }
+  
+    .navbar-menu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      margin-top: 1rem;
+    }
+  
+    .navbar-menu.show {
+      display: flex;
+    }
+  
+    .navbar-menu li {
+      padding: 0.5rem 0;
+    }
+  }
   

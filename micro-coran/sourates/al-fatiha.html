@@ -6,6 +6,8 @@
   <title>Sourate Al-Fatiha</title>
   <link rel="stylesheet" href="../css/styles.css">
   <script src="../js/theme.js" defer></script>
+  <script src="../js/load-translations.js" defer></script>
+  <script src="../js/toggle-phonetic.js" defer></script>
 </head>
 <body>
   <button id="theme-toggle">🌙 Mode nuit</button>
@@ -34,27 +36,26 @@
   </div>
 
   <hr>
-
+  <section>
+    <label for="trad-select"><strong>Choisir la traduction :</strong></label>
+    <select id="trad-select">
+      <option value="hamidullah">Hamidullah</option>
+      <option value="chiadmi">Chiadmi</option>
+      <option value="tawbah">Tawbah</option>
+      <option value="chebel">Chebel</option>
+      <option value="asady">Muhammad Asad</option>
+    </select>
+  </section>
+  <div style="margin-top: 1rem;">
+    <input type="checkbox" id="phonetic-toggle" checked>
+    <label for="phonetic-toggle">Afficher la phonétique</label>
+  </div>
+  
+  <!-- Conteneur où les versets seront générés -->
+  <div id="versets-container"></div>
+  
   <!-- Versets -->
-  <div class="verset">
-    <h3>1. بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</h3>
-    <p><strong>Français :</strong> Au nom d’Allah, le Tout Miséricordieux, le Très Miséricordieux.</p>
-    <p><em>Phonétique :</em> Bismi llāhi r-raḥmāni r-raḥīm</p>
-    <audio controls>
-      <source src="../audio/001001.mp3" type="audio/mpeg">
-    </audio>
-  </div>
-
-  <div class="verset">
-    <h3>2. الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</h3>
-    <p><strong>Français :</strong> Louange à Allah, Seigneur de l’univers.</p>
-    <p><em>Phonétique :</em> Al-ḥamdu li-llāhi rabbi l-ʿālamīn</p>
-    <audio controls>
-      <source src="../audio/001002.mp3" type="audio/mpeg">
-    </audio>
-  </div>
-
-  <!-- Répéter pour versets 3 à 7... -->
-
+  
+  
 </body>
 </html>

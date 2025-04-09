@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggle = document.getElementById("theme-toggle");
     const body = document.body;
   
-    if (localStorage.getItem("theme") === "dark") {
+    if (localStorage.getItem("theme") === "dark") 
+    {
       body.classList.add("dark");
     }
   
@@ -17,4 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
     });
   });
+
+  function toggleMenu() {
+    const menu = document.getElementById("navbar-menu");
+    menu.classList.toggle("show");
+  }
   
