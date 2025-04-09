@@ -1,7 +1,7 @@
 // ✅ load-translations.js
 let globalData = null;
 
-function render(data, trad, showPhonetic = true) {
+function render(data, trad, showPhonetic = true, showArabic = true) {
   const container = document.getElementById("versets-container");
   container.innerHTML = "";
 
@@ -10,7 +10,7 @@ function render(data, trad, showPhonetic = true) {
     verset.className = "verset";
 
     verset.innerHTML = `
-      <h3>${i}. ${data.ar[i]}</h3>
+      ${showArabic ? `<h3>${i}. ${data.ar[i]}</h3>` : ""}
       <p><strong>Français (${trad}) :</strong> ${data[trad][i]}</p>
       ${showPhonetic ? `<p><em>Phonétique :</em> ${data.phonetic[i]}</p>` : ""}
       <audio controls>
@@ -22,36 +22,47 @@ function render(data, trad, showPhonetic = true) {
   }
 }
 
+
 // Chargement initial
 document.addEventListener("DOMContentLoaded", () => {
   const select = document.getElementById("trad-select");
   const phoneticToggle = document.getElementById("phonetic-toggle");
+  const arabicToggle = document.getElementById("arabic-toggle");
 
   fetch("../translations/al-fatiha.json")
     .then(res => res.json())
     .then(data => {
       globalData = data;
 
-      // Restaurer les préférences
+      // Récupération des préférences
       const savedTranslation = localStorage.getItem("selectedTranslation") || select.value;
       const savedPhonetic = localStorage.getItem("showPhonetic");
-      const phoneticChecked = savedPhonetic === null ? true : savedPhonetic === "true";
+      const savedArabic = localStorage.getItem("showArabic");
 
+      const showPhonetic = savedPhonetic === null ? true : savedPhonetic === "true";
+      const showArabic = savedArabic === null ? true : savedArabic === "true";
+
+      // Appliquer les préférences
       select.value = savedTranslation;
-      phoneticToggle.checked = phoneticChecked;
+      phoneticToggle.checked = showPhonetic;
+      arabicToggle.checked = showArabic;
 
-      render(globalData, savedTranslation, phoneticChecked);
+      render(globalData, savedTranslation, showPhonetic, showArabic);
 
-      // Écouteurs d'événements
+      // Écouteurs
       select.addEventListener("change", () => {
-        const selected = select.value;
-        localStorage.setItem("selectedTranslation", selected);
-        render(globalData, selected, phoneticToggle.checked);
+        localStorage.setItem("selectedTranslation", select.value);
+        render(globalData, select.value, phoneticToggle.checked, arabicToggle.checked);
       });
 
       phoneticToggle.addEventListener("change", () => {
         localStorage.setItem("showPhonetic", phoneticToggle.checked);
-        render(globalData, select.value, phoneticToggle.checked);
+        render(globalData, select.value, phoneticToggle.checked, arabicToggle.checked);
+      });
+
+      arabicToggle.addEventListener("change", () => {
+        localStorage.setItem("showArabic", arabicToggle.checked);
+        render(globalData, select.value, phoneticToggle.checked, arabicToggle.checked);
       });
     });
 });
