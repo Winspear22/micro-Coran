@@ -1,3 +1,4 @@
+// ✅ load-translations.js
 let globalData = null;
 
 function render(data, trad, showPhonetic = true) {
@@ -21,18 +22,36 @@ function render(data, trad, showPhonetic = true) {
   }
 }
 
-// Chargement des données JSON à l’ouverture
+// Chargement initial
 document.addEventListener("DOMContentLoaded", () => {
   const select = document.getElementById("trad-select");
+  const phoneticToggle = document.getElementById("phonetic-toggle");
 
   fetch("../translations/al-fatiha.json")
     .then(res => res.json())
     .then(data => {
       globalData = data;
-      render(data, select.value, document.getElementById("phonetic-toggle")?.checked);
 
+      // Restaurer les préférences
+      const savedTranslation = localStorage.getItem("selectedTranslation") || select.value;
+      const savedPhonetic = localStorage.getItem("showPhonetic");
+      const phoneticChecked = savedPhonetic === null ? true : savedPhonetic === "true";
+
+      select.value = savedTranslation;
+      phoneticToggle.checked = phoneticChecked;
+
+      render(globalData, savedTranslation, phoneticChecked);
+
+      // Écouteurs d'événements
       select.addEventListener("change", () => {
-        render(globalData, select.value, document.getElementById("phonetic-toggle")?.checked);
+        const selected = select.value;
+        localStorage.setItem("selectedTranslation", selected);
+        render(globalData, selected, phoneticToggle.checked);
+      });
+
+      phoneticToggle.addEventListener("change", () => {
+        localStorage.setItem("showPhonetic", phoneticToggle.checked);
+        render(globalData, select.value, phoneticToggle.checked);
       });
     });
 });
